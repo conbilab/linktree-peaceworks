@@ -203,11 +203,15 @@ export default function Home() {
               onSubmit={async (e) => {
                 e.preventDefault();
                 const form = e.currentTarget;
+                const nameEl = form.querySelector<HTMLInputElement>('input[name="name"]');
+                const emailEl = form.querySelector<HTMLInputElement>('input[name="email"]');
+                const messageEl = form.querySelector<HTMLTextAreaElement>('textarea[name="message"]');
+                const consentEl = form.querySelector<HTMLInputElement>('input[name="consent"]');
                 const payload = {
-                  name: (form.name.value as string).trim(),
-                  email: (form.email.value as string).trim(),
-                  message: (form.message.value as string).trim(),
-                  consentAgreed: (form.querySelector('input[name="consent"]') as HTMLInputElement)?.checked ?? false,
+                  name: (nameEl?.value ?? "").trim(),
+                  email: (emailEl?.value ?? "").trim(),
+                  message: (messageEl?.value ?? "").trim(),
+                  consentAgreed: consentEl?.checked ?? false,
                 };
                 const result = validateForm(payload);
                 if (!result.valid) {
